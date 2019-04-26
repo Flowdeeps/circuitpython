@@ -287,13 +287,13 @@ void audio_dma_init(audio_dma_t* dma) {
 }
 
 void audio_dma_reset(void) {
-    for (uint8_t i = 0; i < AUDIO_DMA_CHANNEL_COUNT; i++) {
-        audio_dma_state[i] = NULL;
-        audio_dma_pending[i] = false;
-        dma_disable_channel(i);
-        dma_descriptor(i)->BTCTRL.bit.VALID = false;
-        MP_STATE_PORT(playing_audio)[i] = NULL;
-    }
+    // for (uint8_t i = 0; i < AUDIO_DMA_CHANNEL_COUNT; i++) {
+    //     audio_dma_state[i] = NULL;
+    //     audio_dma_pending[i] = false;
+    //     dma_disable_channel(i);
+    //     dma_descriptor(i)->BTCTRL.bit.VALID = false;
+    //     MP_STATE_PORT(playing_audio)[i] = NULL;
+    // }
 }
 
 bool audio_dma_get_playing(audio_dma_t* dma) {

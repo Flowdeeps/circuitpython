@@ -45,12 +45,12 @@ volatile uint64_t ticks_ms = 0;
 void SysTick_Handler(void) {
     // SysTick interrupt handler called when the SysTick timer reaches zero
     // (every millisecond).
-    common_hal_mcu_disable_interrupts();
+    // common_hal_mcu_disable_interrupts();
     ticks_ms += 1;
 
     // Read the control register to reset the COUNTFLAG.
     (void) SysTick->CTRL;
-    common_hal_mcu_enable_interrupts();
+    // common_hal_mcu_enable_interrupts();
 
     #ifdef CIRCUITPY_AUTORELOAD_DELAY_MS
         autoreload_tick();
@@ -76,16 +76,16 @@ void tick_init() {
         NVIC_SetPriority(i, (1UL << __NVIC_PRIO_BITS) - 1UL);
     }
     // Bump up the systick interrupt so nothing else interferes with timekeeping.
-    NVIC_SetPriority(SysTick_IRQn, 0);
+    NVIC_SetPriority(SysTick_IRQn, 1);
     #ifdef SAMD21
-    NVIC_SetPriority(USB_IRQn, 1);
+    NVIC_SetPriority(USB_IRQn, 2);
     #endif
 
     #ifdef SAMD51
-    NVIC_SetPriority(USB_0_IRQn, 1);
-    NVIC_SetPriority(USB_1_IRQn, 1);
-    NVIC_SetPriority(USB_2_IRQn, 1);
-    NVIC_SetPriority(USB_3_IRQn, 1);
+    NVIC_SetPriority(USB_0_IRQn, 2);
+    NVIC_SetPriority(USB_1_IRQn, 2);
+    NVIC_SetPriority(USB_2_IRQn, 2);
+    NVIC_SetPriority(USB_3_IRQn, 2);
     #endif
 }
 
